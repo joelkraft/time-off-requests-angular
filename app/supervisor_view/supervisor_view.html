@@ -1,0 +1,162 @@
+<div myApp-supervisor class="supervisor-interface">
+  <div class="switch-view-container" ng-switch on="viewState">
+    <div ng-switch-when="decision">
+      <div id="screen"></div>
+      <div class="row">
+        <div id="decisionPanel" class="panel panel-primary">
+          <div class="panel-heading">
+            <h1 class="panel-title">Verify</h1>
+          </div>
+          <div class="panel-body">
+            <form role="form" class="form">
+              <div class="row">
+                <div class="col-xs-7">
+                  <div id="decisionSwitches" class="form-group">
+                    <div data-toggle="buttons" class="btn-group">
+                      <label id="approve" class="btn btn-default">
+                        <input type="radio" name="options" id="option1"/>Approve
+                      </label>
+                      <label id="deny" class="btn btn-default">
+                        <input type="radio" name="options" id="option2"/>Deny
+                      </label>
+                      <label id="cancel" class="btn btn-default">
+                        <input type="radio" name="options" id="option3"/>Cancel
+                      </label>
+                      <label id="waitlist" class="btn btn-waitlist">
+                        <input type="radio" name="options" id="option4"/>Waitlist
+                      </label>
+                      <label id="pending" class="btn btn-default">
+                        <input type="radio" name="options" id="option5"/>Pending
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group commentsBox">
+                    <label class="control-label">Comments to send to <span class="employeeName"></span></label>
+                    <textarea rows="8" id="decision_comments" class="form-control"></textarea>
+                    <p>WHAT IS THIS?</p>
+                  </div>
+                  <div class="form-group">
+                    <input type="button" name="submit" id="submitDecision" value="Submit" class="btn btn-primary"/>
+                    <input type="button" name="cancel" id="cancelDecision" value="Cancel" class="btn btn-default"/>
+                  </div>
+                </div>
+                <div class="col-xs-5">
+                  <div class="form-group">
+                    <div class="panel panel-info">
+                      <div class="panel-heading">
+                        <h2 class="panel-title">Current Request for <span class="employeeName"></span></h2>
+                      </div>
+                      <div id="detailsPanel" class="panel-body"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-switch-when="success">
+      <div class="row">
+        <div class="panel panel-success confirmSuccess">
+          <div class="bg-success">
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="text-success text-center">Your decision has been recorded, and an email was sent to the employee.</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 sucessWindowCentered">
+                <button type="button" id="confirmationHide" class="btn btn-success">OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-switch-when="successScreen">
+      <div id="successScreen" class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8"></div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+    <div ng-switch-when="main">
+      <div class="page-header">
+        <div class="row">
+          <div class="col-md-10">
+            <h1>Time Off Request Management <small>Supervisor Interface </small></h1>
+          </div>
+        </div>
+        <div id="userChangeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="myModalLabel" class="modal-title">Set user info</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form">
+                  <div class="form-group">
+                    <label for="nameChangeInput" class="control-label">Name</label>
+                    <input id="nameChangeInput" placeholder="name" class="form-control"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="emailChangeInput" class="control-label">Email</label>
+                    <input id="emailChangeInput" placeholder="email" class="form-control"/>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                <button id="userChangeSubmit" type="button" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mainView">
+        <div class="row">
+          <div id="allFilterDiv" class="center-block">
+            <div id="filter" class="input-group pull-right">
+              <div class="input-group"><span class="input-group-addon">Search</span>
+                <input id="search-bar" type="text" placeholder="Type search here" class="form-control"/>
+              </div>
+            </div>
+          </div>
+          <!-- This was markup for multiple selectable filters, may reinstate
+          div(class='form-group pull-right' id='deptFilterSwitches')
+            div(class='btn-group' data-toggle='buttons')
+              label(class='btn btn-default active' id='deptAll')
+                input(type='radio' name='options' id='option1')
+                |All
+              label(class='btn btn-default' id='deptStx')
+                input(type='radio' name='options' id='option2')
+                |Stacks
+              label(class='btn btn-default' id='deptCirc')
+                input(type='radio' name='options' id='option3')
+                |Circulation
+          
+          -->
+        </div>
+        <div class="row">
+          <div id="requests" class="center-block">
+            <table id="requestsHeader"></table>
+            <div id="requestsBody">
+              <table>
+                <tr> 
+                  <td style="border:none;">Loading Requests...</td>
+                </tr>
+              </table>
+              <div id="requestsBodySpacer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>
+  Showing of 'interpolate' filter:
+  {{ 'Current version is v%VERSION%.' | interpolate }}
+</p>
